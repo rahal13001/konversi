@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Tables\Grouping\Group;
 
 class ConversionResource extends Resource
 {
@@ -49,6 +50,15 @@ class ConversionResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->defaultGroup('species.species')
+            ->groups([
+                Group::make('species.species')
+                    ->label('Jenis Ikan')
+                    ->collapsible(),
+                Group::make('product.product')
+                    ->label('Jenis Produk')
+                    ->collapsible(),
+            ])
             ->columns([
                 Tables\Columns\TextColumn::make('product.product')
                     ->numeric()
